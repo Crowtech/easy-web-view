@@ -123,11 +123,10 @@ class _EasyWebViewState extends State<EasyWebView> {
           key: widget?.key,
           initialUrl: _updateUrl(src),
           javascriptMode: JavascriptMode.unrestricted,
-          javascriptChannels: Set.from([JavascriptChannel(name: "parent", onMessageReceived: widget.onMessageReceived)]),
+          javascriptChannels: Set.from([JavascriptChannel(name: "Print", onMessageReceived: widget.onMessageReceived)]),
           onWebViewCreated: (val) {
             _controller = val;
             if (widget?.onLoaded != null) {
-              print("Loading mobile");
               widget.onLoaded();
             }
           },
