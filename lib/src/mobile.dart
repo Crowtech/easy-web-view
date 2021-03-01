@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_nest/flutter_nest.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import 'impl.dart';
@@ -60,6 +61,14 @@ class EasyWebView extends StatefulWidget implements EasyWebViewImpl {
 
 class _EasyWebViewState extends State<EasyWebView> {
   late WebViewController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    if (NestInfo.getPlatform() == Platform.android) {
+      WebView.platform = SurfaceAndroidWebView();
+    }
+  }
 
   @override
   void didUpdateWidget(EasyWebView oldWidget) {
