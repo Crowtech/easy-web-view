@@ -140,7 +140,7 @@ class _EasyWebViewState extends State<EasyWebView> {
       if (_iframeElementMap[key] == null) {
         _iframeElementMap[key] = html.IFrameElement();
         html.window.onMessage.forEach((element) {
-          print(element.data);
+          print("DATA IS : ${element.data}");
         });
       }
       final element = _iframeElementMap[key]!
