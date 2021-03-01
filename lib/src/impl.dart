@@ -4,6 +4,7 @@ import 'package:html2md/html2md.dart' as html2md;
 import 'package:http/http.dart' as http;
 import 'package:markdown/markdown.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class EasyWebViewImpl {
   final String src;
@@ -15,6 +16,7 @@ class EasyWebViewImpl {
   final Map<String, String> headers;
   final bool widgetsTextSelectable;
   final VoidCallback onLoaded;
+  final Function(JavascriptMessage) onMessageReceived;
 
   const EasyWebViewImpl({
     Key? key,
@@ -28,6 +30,7 @@ class EasyWebViewImpl {
     this.convertToWidgets = false,
     this.widgetsTextSelectable = false,
     this.headers = const {},
+    required this.onMessageReceived,
   }) : assert((isHtml && isMarkdown) == false);
 
   static String wrapHtml(String src) {

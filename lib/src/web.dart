@@ -2,6 +2,7 @@ import 'dart:html' as html;
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 import 'impl.dart';
 
@@ -17,7 +18,8 @@ class EasyWebView extends StatefulWidget implements EasyWebViewImpl {
     this.isMarkdown = false,
     this.convertToWidgets = false,
     this.headers = const {},
-    this.widgetsTextSelectable = false,
+    this.widgetsTextSelectable = false, 
+    required this.onMessageReceived,
   })  : assert((isHtml && isMarkdown) == false),
         super(key: key);
 
@@ -53,6 +55,9 @@ class EasyWebView extends StatefulWidget implements EasyWebViewImpl {
 
   @override
   final void Function() onLoaded;
+
+  @override
+  final void Function(JavascriptMessage) onMessageReceived;
 }
 
 class _EasyWebViewState extends State<EasyWebView> {
@@ -140,7 +145,10 @@ class _EasyWebViewState extends State<EasyWebView> {
       if (_iframeElementMap[key] == null) {
         _iframeElementMap[key] = html.IFrameElement();
         html.window.onMessage.forEach((element) {
-          print("DATA IS : ${element.data}");
+
+          JavascriptMessage message = new JavascriptMessage(element.data);
+          widget.onMessageReceived(message);
+          
         });
       }
       final element = _iframeElementMap[key]!

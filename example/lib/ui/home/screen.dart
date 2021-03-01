@@ -124,7 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               isHtml: _isHtml,
                               isMarkdown: _isMarkdown,
                               convertToWidgets: _useWidgets,
-                              key: key
+                              key: key, onMessageReceived: (JavascriptMessage ) {  },
                               // width: 100,
                               // height: 100,
                               )),
@@ -138,7 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             isHtml: _isHtml,
                             isMarkdown: _isMarkdown,
                             convertToWidgets: _useWidgets,
-                            key: key2
+                            key: key2, onMessageReceived: (JavascriptMessage ) {  },
                             // width: 100,
                             // height: 100,
                             ),
@@ -163,7 +163,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 isHtml: _isHtml,
                                 isMarkdown: _isMarkdown,
                                 convertToWidgets: _useWidgets,
-                                key: key3
+                                key: key3, onMessageReceived: (JavascriptMessage ) {  },
                                 // width: 100,
                                 // height: 100,
                                 ),

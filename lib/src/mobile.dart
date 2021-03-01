@@ -4,6 +4,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 import 'impl.dart';
 
 class EasyWebView extends StatefulWidget implements EasyWebViewImpl {
+
   const EasyWebView({
     required this.src,
     required this.onLoaded,
@@ -16,6 +17,7 @@ class EasyWebView extends StatefulWidget implements EasyWebViewImpl {
     this.convertToWidgets = false,
     this.headers = const {},
     this.widgetsTextSelectable = false,
+    required this.onMessageReceived,
   })  : assert((isHtml && isMarkdown) == false),
         super(key: key);
 
@@ -51,6 +53,9 @@ class EasyWebView extends StatefulWidget implements EasyWebViewImpl {
 
   @override
   final void Function() onLoaded;
+
+  @override
+  final void Function(JavascriptMessage) onMessageReceived;
 }
 
 class _EasyWebViewState extends State<EasyWebView> {
@@ -118,6 +123,7 @@ class _EasyWebViewState extends State<EasyWebView> {
           key: widget?.key,
           initialUrl: _updateUrl(src),
           javascriptMode: JavascriptMode.unrestricted,
+          javascriptChannels: Set.from([JavascriptChannel(name: "parent", onMessageReceived: widget.onMessageReceived)]),
           onWebViewCreated: (val) {
             _controller = val;
             if (widget?.onLoaded != null) {
