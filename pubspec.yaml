@@ -15,7 +15,7 @@ dependencies:
   markdown: ^4.0.0-nullsafety.0
   html2md: ^0.5.1
   url_launcher: ^6.0.0-nullsafety.6
-  http: ^0.13.0-nullsafety.0
+  http: ^0.12.2
 
 dev_dependencies:
   flutter_test:
