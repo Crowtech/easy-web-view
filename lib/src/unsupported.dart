@@ -6,44 +6,31 @@ import 'impl.dart';
 class EasyWebView extends StatefulWidget implements EasyWebViewImpl {
 
   const EasyWebView({
-    Key? key,
-    required this.src,
-    required this.onLoaded,
+    Key key,
+    @required this.src,
+    @required this.onLoaded,
     this.height,
     this.width,
     this.webAllowFullScreen = true,
-    this.isHtml = false,
-    this.isMarkdown = false,
-    this.convertToWidgets = false,
     this.headers = const {},
     this.widgetsTextSelectable = false,
-    required this.onMessageReceived,
-  })  : assert((isHtml && isMarkdown) == false),
-        super(key: key);
+    @required this.onMessageReceived,
+  })  : super(key: key);
 
   @override
   _EasyWebViewState createState() => _EasyWebViewState();
 
   @override
-  final double? height;
+  final double height;
 
   @override
   final String src;
 
   @override
-  final double? width;
+  final double width;
 
   @override
   final bool webAllowFullScreen;
-
-  @override
-  final bool isMarkdown;
-
-  @override
-  final bool isHtml;
-
-  @override
-  final bool convertToWidgets;
 
   @override
   final Map<String, String> headers;
@@ -63,8 +50,8 @@ class _EasyWebViewState extends State<EasyWebView> {
   @override
   Widget build(BuildContext context) {
     return OptionalSizedChild(
-      width: widget?.width,
-      height: widget?.height,
+      width: widget.width,
+      height: widget.height,
       builder: (w, h) => Placeholder(),
     );
   }

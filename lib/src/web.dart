@@ -8,44 +8,31 @@ import 'impl.dart';
 
 class EasyWebView extends StatefulWidget implements EasyWebViewImpl {
   const EasyWebView({
-    Key? key,
-    required this.src,
-    required this.onLoaded,
+    Key key,
+    @required this.src,
+    @required this.onLoaded,
     this.height,
     this.width,
     this.webAllowFullScreen = true,
-    this.isHtml = false,
-    this.isMarkdown = false,
-    this.convertToWidgets = false,
     this.headers = const {},
     this.widgetsTextSelectable = false, 
-    required this.onMessageReceived,
-  })  : assert((isHtml && isMarkdown) == false),
-        super(key: key);
+    @required this.onMessageReceived,
+  })  : super(key: key);
 
   @override
   _EasyWebViewState createState() => _EasyWebViewState();
 
   @override
-  final double? height;
+  final double height;
 
   @override
   final String src;
 
   @override
-  final double? width;
+  final double width;
 
   @override
   final bool webAllowFullScreen;
-
-  @override
-  final bool isMarkdown;
-
-  @override
-  final bool isHtml;
-
-  @override
-  final bool convertToWidgets;
 
   @override
   final Map<String, String> headers;
@@ -63,14 +50,12 @@ class EasyWebView extends StatefulWidget implements EasyWebViewImpl {
 class _EasyWebViewState extends State<EasyWebView> {
   @override
   void initState() {
-    widget?.onLoaded();
+    widget.onLoaded();
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
       final _iframe = _iframeElementMap[widget.key];
       if (_iframe != null) {
         _iframe.onLoad.listen((event) {
-          if (widget?.onLoaded != null) {
-            widget.onLoaded();
-          }
+          widget.onLoaded();
         });
       }
     });
@@ -97,36 +82,16 @@ class _EasyWebViewState extends State<EasyWebView> {
   @override
   Widget build(BuildContext context) {
     return OptionalSizedChild(
-      width: widget?.width,
-      height: widget?.height,
+      width: widget.width,
+      height: widget.height,
       builder: (w, h) {
         String src = widget.src;
-        if (widget.convertToWidgets) {
-          if (EasyWebViewImpl.isUrl(src)) {
-            return RemoteMarkdown(
-              src: src,
-              headers: widget.headers,
-              isSelectable: widget.widgetsTextSelectable,
-            );
-          }
-          String _markdown = '';
-          if (widget.isMarkdown) {
-            _markdown = src;
-          }
-          if (widget.isHtml) {
-            src = EasyWebViewImpl.wrapHtml(src);
-            _markdown = EasyWebViewImpl.html2Md(src);
-          }
-          return LocalMarkdown(
-            data: _markdown,
-            isSelectable: widget.widgetsTextSelectable,
-          );
-        }
+        
         _setup(src, w, h);
         return AbsorbPointer(
           child: RepaintBoundary(
             child: HtmlElementView(
-              key: widget?.key,
+              key: widget.key,
               viewType: 'iframe-$src',
             ),
           ),
@@ -137,7 +102,7 @@ class _EasyWebViewState extends State<EasyWebView> {
 
   static final _iframeElementMap = Map<Key, html.IFrameElement>();
 
-  void _setup(String src, double? width, double? height) {
+  void _setup(String src, double width, double height) {
     final src = widget.src;
     final key = widget.key ?? ValueKey('');
     // ignore: undefined_prefixed_name
@@ -151,23 +116,14 @@ class _EasyWebViewState extends State<EasyWebView> {
           
         });
       }
-      final element = _iframeElementMap[key]!
+      final element = _iframeElementMap[key]
         ..style.border = '0'
         ..allowFullscreen = widget.webAllowFullScreen
         ..height = height?.toInt().toString()
         ..width = width?.toInt().toString();
-      if (src != null) {
-        String _src = src;
-        if (widget.isMarkdown) {
-          _src = "data:text/html;charset=utf-8," +
-              Uri.encodeComponent(EasyWebViewImpl.md2Html(src));
-        }
-        if (widget.isHtml) {
-          _src = "data:text/html;charset=utf-8," +
-              Uri.encodeComponent(EasyWebViewImpl.wrapHtml(src));
-        }
-        element..src = _src;
-      }
+      String _src = src;
+     
+      element..src = _src;
       return element;
     });
   }
