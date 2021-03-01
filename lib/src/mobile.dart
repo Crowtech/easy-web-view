@@ -127,6 +127,7 @@ class _EasyWebViewState extends State<EasyWebView> {
           onWebViewCreated: (val) {
             _controller = val;
             if (widget?.onLoaded != null) {
+              print("Loading mobile");
               widget.onLoaded();
             }
           },
