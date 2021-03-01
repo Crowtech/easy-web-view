@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  webview_flutter: ^2.0.0-nullsafety.4
+  webview_flutter: ^1.0.7
   flutter_markdown: ^0.6.0-nullsafety.1
   markdown: ^4.0.0-nullsafety.0
   html2md: ^0.5.1
