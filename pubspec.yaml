@@ -6,14 +6,14 @@ repository: https://github.com/rodydavis/plugins
 maintainer: Rody Davis (@rodydavis)
 publish_to: none
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
-  webview_flutter: ^1.0.7
+  webview_flutter: ^2.0.4
   url_launcher: ^6.0.3
-  http: ^0.13.0
+  http: ^0.13.1
   flutter_nest:
     git:
       url: ssh://git@github.com/Crowtech/flutter-nest.git

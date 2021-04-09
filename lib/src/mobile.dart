@@ -7,28 +7,28 @@ import 'impl.dart';
 class EasyWebView extends StatefulWidget implements EasyWebViewImpl {
 
   const EasyWebView({
-    @required this.src,
-    @required this.onLoaded,
-    Key key,
+    required this.src,
+    required this.onLoaded,
+    Key? key,
     this.height,
     this.width,
     this.webAllowFullScreen = true,
     this.headers = const {},
     this.widgetsTextSelectable = false,
-    @required this.onMessageReceived,
+    required this.onMessageReceived,
   })  : super(key: key);
 
   @override
   _EasyWebViewState createState() => _EasyWebViewState();
 
   @override
-  final double height;
+  final double? height;
 
   @override
   final String src;
 
   @override
-  final double width;
+  final double? width;
 
   @override
   final bool webAllowFullScreen;
@@ -47,7 +47,7 @@ class EasyWebView extends StatefulWidget implements EasyWebViewImpl {
 }
 
 class _EasyWebViewState extends State<EasyWebView> {
-  WebViewController _controller;
+  late WebViewController _controller;
 
   @override
   void initState() {

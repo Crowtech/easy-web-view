@@ -8,28 +8,28 @@ import 'impl.dart';
 
 class EasyWebView extends StatefulWidget implements EasyWebViewImpl {
   const EasyWebView({
-    Key key,
-    @required this.src,
-    @required this.onLoaded,
+    Key? key,
+    required this.src,
+    required this.onLoaded,
     this.height,
     this.width,
     this.webAllowFullScreen = true,
     this.headers = const {},
     this.widgetsTextSelectable = false, 
-    @required this.onMessageReceived,
+    required this.onMessageReceived,
   })  : super(key: key);
 
   @override
   _EasyWebViewState createState() => _EasyWebViewState();
 
   @override
-  final double height;
+  final double? height;
 
   @override
   final String src;
 
   @override
-  final double width;
+  final double? width;
 
   @override
   final bool webAllowFullScreen;
@@ -52,7 +52,7 @@ class _EasyWebViewState extends State<EasyWebView> {
   void initState() {
     widget.onLoaded();
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
-      final _iframe = _iframeElementMap[widget.key];
+      final _iframe = _iframeElementMap[widget.key!];
       if (_iframe != null) {
         _iframe.onLoad.listen((event) {
           widget.onLoaded();
@@ -102,7 +102,7 @@ class _EasyWebViewState extends State<EasyWebView> {
 
   static final _iframeElementMap = Map<Key, html.IFrameElement>();
 
-  void _setup(String src, double width, double height) {
+  void _setup(String src, double? width, double? height) {
     final src = widget.src;
     final key = widget.key ?? ValueKey('');
     // ignore: undefined_prefixed_name
@@ -116,7 +116,7 @@ class _EasyWebViewState extends State<EasyWebView> {
           
         });
       }
-      final element = _iframeElementMap[key]
+      final element = _iframeElementMap[key]!
         ..style.border = '0'
         ..allowFullscreen = widget.webAllowFullScreen
         ..height = height?.toInt().toString()

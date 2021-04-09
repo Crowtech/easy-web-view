@@ -3,7 +3,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 class EasyWebViewImpl {
   final String src;
-  final num width, height;
+  final num? width, height;
   final bool webAllowFullScreen;
   final Map<String, String> headers;
   final bool widgetsTextSelectable;
@@ -11,15 +11,15 @@ class EasyWebViewImpl {
   final Function(JavascriptMessage) onMessageReceived;
 
   const EasyWebViewImpl({
-    Key key,
-    @required this.src,
-    @required this.onLoaded,
+    Key? key,
+    required this.src,
+    required this.onLoaded,
     this.width,
     this.height,
     this.webAllowFullScreen = true,
     this.widgetsTextSelectable = false,
     this.headers = const {},
-    @required this.onMessageReceived,
+    required this.onMessageReceived,
   });
 
   static String wrapHtml(String src) {
@@ -49,13 +49,13 @@ $src
 }
 
 class OptionalSizedChild extends StatelessWidget {
-  final double width, height;
-  final Widget Function(double, double) builder;
+  final double? width, height;
+  final Widget Function(double?, double?) builder;
 
   const OptionalSizedChild({
-    @required this.width,
-    @required this.height,
-    @required this.builder,
+    required this.width,
+    required this.height,
+    required this.builder,
   });
 
   @override
